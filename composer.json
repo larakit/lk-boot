@@ -1,0 +1,23 @@
+{
+    "name": "larakit/lk-spa",
+    "description": "[Larakit] Отложенная регистрация сервис-провайдеров и алиасов для Laravel",
+    "version": "1.0.0",
+    "keywords": [
+        "laravel",
+        "laravel 5",
+        "larakit"
+    ],
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Larakit\\": "src"
+        },
+        "files": [
+			"src/init.php"
+        ]
+    },
+    "minimum-stability": "dev"
+}
