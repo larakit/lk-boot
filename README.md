@@ -29,12 +29,12 @@
 В файле "src/init.php" регистрируем сервис-провайдеры и алиасы
 ~~~
 <?php
-larakit_provider('Larakit\Base\LarakitServiceProvider');
-larakit_alias('View', 'Illuminate\Support\Facades\View');
+Larakit\SPA::register_provider('Larakit\Base\LarakitServiceProvider');
+Larakit\SPA::register_alias('View', 'Illuminate\Support\Facades\View');
 ~~~
 
 ##Step 3
-Добавляем в config/app.php зарегистрированные сервис-провайдеры и алиасы
+Добавляем в ./config/app.php зарегистрированные сервис-провайдеры и алиасы
 ~~~
 <?php
 
