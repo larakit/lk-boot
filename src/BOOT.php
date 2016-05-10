@@ -1,7 +1,7 @@
 <?php
 namespace Larakit;
 
-class SPA {
+class BOOT {
 
     static public $aliases           = [];
     static public $middlewares       = [];
