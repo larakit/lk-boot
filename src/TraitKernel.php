@@ -8,9 +8,9 @@ trait TraitKernel{
     public function __construct(Application $app, Router $router) {
         $this->app              = $app;
         $this->router           = $router;
-        $this->middleware       = SPA::middlewares();
-        $this->routeMiddleware  = SPA::middlewares_route();
-        $this->middlewareGroups = SPA::middlewares_group();
+        $this->middleware       = Boot::middlewares();
+        $this->routeMiddleware  = Boot::middlewares_route();
+        $this->middlewareGroups = Boot::middlewares_group();
         parent::__construct($app, $router);
     }
 }
