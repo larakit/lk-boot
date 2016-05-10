@@ -1,5 +1,5 @@
 {
-    "name": "larakit/lk-spa",
+    "name": "larakit/lk-boot",
     "description": "[Larakit] Отложенная регистрация сервис-провайдеров и алиасов для Laravel",
     "version": "1.0.0",
     "keywords": [
