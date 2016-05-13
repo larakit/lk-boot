@@ -59,7 +59,7 @@
 ~~~
 
 В этом файле "src/init.php" регистрируем то, что нужно
-~~~
+~~~php
 <?php
 /*################################################################################
   регистрация сервис-провайдера
@@ -79,10 +79,14 @@ Boot::register_middleware(\Illuminate\Foundation\Http\Middleware\CheckForMainten
 /*################################################################################
   регистрация route middlewares
 ################################################################################*/
-Boot::register_middleware_route('auth', \App\Http\Middleware\Authenticate::class);
-Boot::register_middleware_route('auth.basic', \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class);
-Boot::register_middleware_route('guest', \App\Http\Middleware\RedirectIfAuthenticated::class);
-Boot::register_middleware_route('throttle', \Illuminate\Routing\Middleware\ThrottleRequests::class);
+Boot::register_middleware_route('auth', 
+	\App\Http\Middleware\Authenticate::class);
+Boot::register_middleware_route('auth.basic', 
+	\Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class);
+Boot::register_middleware_route('guest', 
+	\App\Http\Middleware\RedirectIfAuthenticated::class);
+Boot::register_middleware_route('throttle', 
+	\Illuminate\Routing\Middleware\ThrottleRequests::class);
 
 /*################################################################################
   регистрация group middlewares
