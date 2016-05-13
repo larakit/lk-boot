@@ -95,6 +95,7 @@ Boot::register_middleware_group('web', [
     \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     \App\Http\Middleware\VerifyCsrfToken::class,
 ]);
+~~~
 
 ##2. Решение вопроса инициализации сервис-провайдеров и алиасов
 ###2.1. Сервис-провайдеры и алиасы
