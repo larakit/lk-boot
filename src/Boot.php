@@ -8,6 +8,8 @@ class Boot {
     static public $middlewares_route = [];
     static public $middlewares_group = [];
     static public $service_providers = [];
+    static public $policies_model    = [];
+    static public $commands          = [];
 
     /**
      * Поставить в очередь регистрацию алиаса
@@ -33,7 +35,7 @@ class Boot {
     }
 
     static function register_middleware_group($group, $middleware) {
-        $middlewares = (array)$middleware;
+        $middlewares = (array) $middleware;
         foreach($middlewares as $m) {
             self::$middlewares_group[$group][$m] = $m;
         }
@@ -41,6 +43,14 @@ class Boot {
 
     static function register_middleware_route($name, $class) {
         self::$middlewares_route[$name] = $class;
+    }
+
+    static function register_policy_model($model_class, $policy_class) {
+        self::$policies_model[$model_class] = $policy_class;
+    }
+
+    static function register_command($class) {
+        self::$commands[$class] = $class;
     }
 
     /**
@@ -68,5 +78,13 @@ class Boot {
 
     static function providers() {
         return array_values(self::$service_providers);
+    }
+
+    static function policies_model() {
+        return self::$policies_model;
+    }
+
+    static function commands() {
+        return array_values(self::$commands);
     }
 }

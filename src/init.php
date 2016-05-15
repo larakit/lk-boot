@@ -2,6 +2,11 @@
 use \Larakit\Boot;
 
 /*################################################################################
+  providers
+################################################################################*/
+Boot::register_provider(\Larakit\LarakitBootServiceProvider::class);
+
+/*################################################################################
   middlewares
 ################################################################################*/
 Boot::register_middleware(\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class);
