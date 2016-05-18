@@ -17,6 +17,10 @@ class LarakitBootServiceProvider extends ServiceProvider {
         foreach(Boot::policies_model() as $model_class => $policy_class) {
             $gate->policy($model_class, $policy_class);
         }
+        //регистрация путей шаблонов для пространств имен
+        foreach(Boot::view_paths() as $view_path => $namespace) {
+            $this->loadViewsFrom($view_path, $namespace);
+        }
         //регистрация команд
         $this->commands(Boot::commands());
     }

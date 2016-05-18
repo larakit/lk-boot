@@ -10,6 +10,7 @@ class Boot {
     static public $service_providers = [];
     static public $policies_model    = [];
     static public $commands          = [];
+    static public $view_paths        = [];
 
     /**
      * Поставить в очередь регистрацию алиаса
@@ -32,6 +33,10 @@ class Boot {
 
     static function register_middleware($middleware) {
         self::$middlewares[$middleware] = $middleware;
+    }
+
+    static function register_view_path($view_path, $namespace) {
+        self::$view_paths[$view_path] = $namespace;
     }
 
     static function register_middleware_group($group, $middleware) {
@@ -86,5 +91,9 @@ class Boot {
 
     static function commands() {
         return array_values(self::$commands);
+    }
+
+    static function view_paths() {
+        return array_values(self::$view_paths);
     }
 }
