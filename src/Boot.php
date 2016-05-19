@@ -94,6 +94,6 @@ class Boot {
     }
 
     static function view_paths() {
-        return array_values(self::$view_paths);
+        return self::$view_paths;
     }
 }
