@@ -12,11 +12,11 @@ class LarakitBootServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function boot(GateContract $gate) {
+    public function boot() {
         //регистрация политик моделей
-        foreach(Boot::policies_model() as $model_class => $policy_class) {
-            $gate->policy($model_class, $policy_class);
-        }
+//        foreach(Boot::policies_model() as $model_class => $policy_class) {
+//            $gate->policy($model_class, $policy_class);
+//        }
         //регистрация путей шаблонов для пространств имен
         foreach(Boot::view_paths() as $view_path => $namespace) {
             $this->loadViewsFrom($view_path, $namespace);
