@@ -36,7 +36,7 @@ class Boot {
     }
 
     static function register_view_path($view_path, $namespace) {
-        self::$view_paths[$view_path] = $namespace;
+        self::$view_paths[$namespace.$view_path] = compact('namespace', 'view_path');
     }
 
     static function register_middleware_group($group, $middleware) {
