@@ -4,9 +4,8 @@ namespace Larakit;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider;
 
-class LarakitBootServiceProvider extends ServiceProvider {
+class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
 
     /**
      * @param  \Illuminate\Contracts\Auth\Access\Gate $gate
