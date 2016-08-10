@@ -30,3 +30,42 @@ Boot::register_middleware_group('web', [
     \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     \App\Http\Middleware\VerifyCsrfToken::class,
 ]);
+
+if(!function_exists('lk_snake')) {
+    function lk_snake($value, $delimiter = '_') {
+        /**
+         *
+         * Переопределяем функцию snake из Illuminate\Support\Str для нормальной компиляции bootstrap/cache/compiled.php
+         * (это необходимо для того, чтобы класс Str не загружался до подключения скомпилированного файла)
+         *
+         * @param string $value
+         * @param string $delimiter
+         *
+         * @return string
+         */
+        if(!ctype_lower($value)) {
+            $value = preg_replace('/\s+/u', '', $value);
+
+            $value = mb_strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value));
+        }
+
+        return $value;
+    }
+}
+
+if(!function_exists('lk_studly')) {
+    function lk_studly($value) {
+        /**
+         *
+         * Переопределяем функцию snake из Illuminate\Support\Str для нормальной компиляции bootstrap/cache/compiled.php
+         * (это необходимо для того, чтобы класс Str не загружался до подключения скомпилированного файла)
+         *
+         * @param string $value
+         *
+         * @return string
+         */
+        $value = ucwords(str_replace(['-', '_'], ' ', $value));
+
+        return str_replace(' ', '', $value);
+    }
+}
