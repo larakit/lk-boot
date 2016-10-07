@@ -1,5 +1,5 @@
 <?php
-use \Larakit\Boot;
+use Larakit\Boot;
 
 /*################################################################################
   providers
@@ -67,5 +67,24 @@ if(!function_exists('lk_studly')) {
         $value = ucwords(str_replace(['-', '_'], ' ', $value));
 
         return str_replace(' ', '', $value);
+    }
+}
+if(!function_exists('rglob')) {
+    function rglob($pattern = '*', $flags = 0, $path = false) {
+        if(!$path) {
+            $path = dirname($pattern) . DIRECTORY_SEPARATOR;
+        }
+        $pattern = basename($pattern);
+        $paths   = glob($path . '*', GLOB_MARK | GLOB_ONLYDIR | GLOB_NOSORT);
+        $files   = glob($path . $pattern, $flags);
+        foreach($paths as $path) {
+            $files = array_merge($files, rglob($pattern, $flags, $path));
+        }
+
+        $files = array_map(function ($v) {
+            return str_replace('\\', '/', $v);
+        }, $files);
+
+        return $files;
     }
 }
