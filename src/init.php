@@ -88,3 +88,12 @@ if(!function_exists('rglob')) {
         return $files;
     }
 }
+
+if (!function_exists('larasafepath')) {
+    function larasafepath($path) {
+        $path = str_replace(['\\', '/'], '/', $path);
+        $base_path = str_replace(['\\', '/'], '/', base_path());
+        $path = str_replace($base_path, '', $path);
+        return $path;
+    }
+}
