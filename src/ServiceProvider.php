@@ -1,7 +1,6 @@
 <?php
 namespace Larakit;
 
-use Larakit\Managers\ManagerPackage;
 use Larakit\Page\PageTheme;
 
 abstract class ServiceProvider extends \Illuminate\Support\ServiceProvider {
@@ -54,7 +53,6 @@ abstract class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             ], 'migrations');
         }
         $this->bootPackage($package);
-        ManagerPackage::register($package, $alias);
     }
 
     function bootPackage($package) {
