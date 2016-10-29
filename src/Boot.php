@@ -22,6 +22,13 @@ class Boot {
         self::$aliases[$alias] = $facade;
     }
 
+    static function init_package($package){
+        $inits = rglob('*.php', 0, base_path('vendor/' . $package . '/src/init'));
+        foreach($inits as $init) {
+            include_once $init;
+        }
+    }
+
     /**
      * Поставить в очередь регистрацию сервис-провайдера
      *
