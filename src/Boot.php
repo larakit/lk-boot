@@ -23,7 +23,7 @@ class Boot {
     }
 
     static function init_package($package){
-        $inits = rglob('*.php', 0, base_path('vendor/' . $package . '/src/init'));
+        $inits = rglob('*.php', 0, __DIR__.('/../../../vendor/' . $package . '/src/init'));
         foreach($inits as $init) {
             include_once $init;
         }
