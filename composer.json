@@ -16,7 +16,7 @@
             "Larakit\\": "src"
         },
         "files": [
-	    "src/init.php"
+            "src/init.php"
         ]
     },
     "minimum-stability": "dev"
