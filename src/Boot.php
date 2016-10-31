@@ -22,8 +22,8 @@ class Boot {
         self::$aliases[$alias] = $facade;
     }
 
-    static function init_package($package){
-        $inits = rglob('*.php', 0, __DIR__.('/../../../vendor/' . $package . '/src/init'));
+    static function init_package($package, $dir='init'){
+        $inits = rglob('*.php', 0, __DIR__.('/../../../' . $package . '/src/'.$dir));
         foreach($inits as $init) {
             include_once $init;
         }
