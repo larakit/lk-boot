@@ -4,6 +4,7 @@ namespace Larakit;
 class Boot {
 
     static public $aliases           = [];
+    static public $configs           = [];
     static public $middlewares       = [];
     static public $middlewares_route = [];
     static public $middlewares_group = [];
@@ -22,8 +23,12 @@ class Boot {
         self::$aliases[$alias] = $facade;
     }
 
-    static function init_package($package, $dir='init'){
-        $inits = rglob('*.php', 0, __DIR__.('/../../../' . $package . '/src/'.$dir));
+    static function register_config($path_config, $deploy_path = null) {
+        self::$configs[$path_config] = (bool) $deploy_path;
+    }
+
+    static function init_package($package, $dir = 'init') {
+        $inits = rglob('*.php', 0, __DIR__ . ('/../../../' . $package . '/src/' . $dir));
         foreach($inits as $init) {
             include_once $init;
         }
@@ -43,7 +48,7 @@ class Boot {
     }
 
     static function register_view_path($view_path, $namespace) {
-        self::$view_paths[$namespace.$view_path] = compact('namespace', 'view_path');
+        self::$view_paths[$namespace . $view_path] = compact('namespace', 'view_path');
     }
 
     static function register_middleware_group($group, $middleware) {
