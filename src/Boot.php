@@ -28,9 +28,12 @@ class Boot {
     }
 
     static function init_package($package, $dir = 'init') {
-        $inits = rglob('*.php', 0, __DIR__ . ('/../../../' . $package . '/src/' . $dir));
-        foreach($inits as $init) {
-            include_once $init;
+        $path = dirname(dirname(dirname(__DIR__))) . '/' . $package . '/src/' . $dir;
+        if(file_exists($path)) {
+            $inits = rglob('*.php', 0, $path);
+            foreach($inits as $init) {
+                include_once $init;
+            }
         }
     }
 
