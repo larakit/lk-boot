@@ -17,6 +17,14 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
         //            $gate->policy($model_class, $policy_class);
         //        }
         //регистрация путей шаблонов для пространств имен
+        foreach(Boot::$langs as $alias => $pathes) {
+            foreach($pathes as $path) {
+                $this->loadTranslationsFrom($path, $alias);
+                $this->publishes([
+                    $path => resource_path('lang/vendor/' . $alias),
+                ]);
+            }
+        }
         foreach(Boot::view_paths() as $v) {
             $namespace = Arr::get($v, 'namespace');
             $view_path = Arr::get($v, 'view_path');
@@ -24,6 +32,14 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
         }
         //регистрация команд
         $this->commands(Boot::commands());
+        foreach(Boot::$boots as $dir_boot) {
+            $dir_boot = str_replace('\\', '/', $dir_boot);
+            $files    = rglob('*.php', 0, $dir_boot);
+            foreach($files as $path) {
+                include_once $path;
+            }
+        }
+        
     }
     
     /**

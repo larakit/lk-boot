@@ -13,6 +13,8 @@ class Boot {
     static public $commands          = [];
     static public $view_paths        = [];
     static public $migrations        = [];
+    static public $boots             = [];
+    static public $langs             = [];
     
     /**
      * Поставить в очередь регистрацию алиаса
@@ -26,6 +28,14 @@ class Boot {
     
     static function register_config($path_config, $deploy_path = null) {
         self::$configs[$path_config] = (bool) $deploy_path;
+    }
+    
+    static function register_boot($dir_boot) {
+        self::$boots[$dir_boot] = $dir_boot;
+    }
+    
+    static function register_lang($dir_boot, $alias) {
+        self::$langs[$alias][$dir_boot] = $dir_boot;
     }
     
     static function register_migrations($migrate_path) {
