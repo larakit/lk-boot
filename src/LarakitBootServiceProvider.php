@@ -5,7 +5,7 @@ namespace Larakit;
 use Illuminate\Support\Arr;
 
 class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
-
+    
     /**
      * @param  \Illuminate\Contracts\Auth\Access\Gate $gate
      *
@@ -25,7 +25,7 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
         //регистрация команд
         $this->commands(Boot::commands());
     }
-
+    
     /**
      * Register the application services.
      *
@@ -35,7 +35,7 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
         foreach(Boot::$configs as $path_config => $is_deploy) {
             $path_config = str_replace('\\', '/', $path_config);
             $files       = rglob('*.php', 0, $path_config);
-
+            
             foreach($files as $path) {
                 $path = str_replace('\\', '/', $path);
                 //                dump($path);
@@ -49,6 +49,11 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
                     $this->publishes([$path => config_path($file),], 'config');
                 }
             }
+        }
+        foreach(Boot::$migrations as $path) {
+            $this->publishes([
+                $path => base_path('database/migrations'),
+            ], 'migrations');
         }
     }
 }
