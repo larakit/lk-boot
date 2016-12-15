@@ -117,7 +117,6 @@ class Boot {
     
     static function middlewares_group() {
         $ret = [];
-        dump(self::$middlewares_group);
         foreach(self::$middlewares_group as $group=>$priorities){
             krsort($priorities);
             foreach($priorities as $priority=>$middlewares){
@@ -127,7 +126,6 @@ class Boot {
                 
             }
         }
-        dd($ret);
         return $ret;
     }
     
