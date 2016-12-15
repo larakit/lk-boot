@@ -1,6 +1,8 @@
 <?php
 namespace Larakit;
 
+use Illuminate\Support\Arr;
+
 class Boot {
     
     static public $aliases           = [];
@@ -61,18 +63,23 @@ class Boot {
         self::$service_providers[$provider] = $provider;
     }
     
-    static function register_middleware($middleware) {
-        self::$middlewares[$middleware] = $middleware;
+    static function register_middleware($middleware, $is_prepend = false) {
+        if($is_prepend) {
+            self::$middlewares = [$middleware] + self::$middlewares;
+        } else {
+            self::$middlewares = self::$middlewares + [$middleware];
+        }
+        self::$middlewares = array_unique(self::$middlewares);
     }
     
     static function register_view_path($view_path, $namespace) {
         self::$view_paths[$namespace . $view_path] = compact('namespace', 'view_path');
     }
     
-    static function register_middleware_group($group, $middleware) {
+    static function register_middleware_group($group, $middleware, $priority = 0) {
         $middlewares = (array) $middleware;
-        foreach($middlewares as $m) {
-            self::$middlewares_group[$group][$m] = $m;
+        foreach($middlewares as $middleware){
+            self::$middlewares_group[$group][(int)$priority][] = $middleware;
         }
     }
     
@@ -109,7 +116,19 @@ class Boot {
     }
     
     static function middlewares_group() {
-        return self::$middlewares_group;
+        $ret = [];
+        dump(self::$middlewares_group);
+        foreach(self::$middlewares_group as $group=>$priorities){
+            krsort($priorities);
+            foreach($priorities as $priority=>$middlewares){
+                foreach($middlewares as $middleware){
+                    $ret[$group][] = $middleware;
+                }
+                
+            }
+        }
+        dd($ret);
+        return $ret;
     }
     
     static function providers() {
