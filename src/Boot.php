@@ -1,8 +1,6 @@
 <?php
 namespace Larakit;
 
-use Illuminate\Support\Arr;
-
 class Boot {
     
     static public $aliases           = [];
@@ -63,13 +61,8 @@ class Boot {
         self::$service_providers[$provider] = $provider;
     }
     
-    static function register_middleware($middleware, $is_prepend = false) {
-        if($is_prepend) {
-            self::$middlewares = [$middleware] + self::$middlewares;
-        } else {
-            self::$middlewares = self::$middlewares + [$middleware];
-        }
-        self::$middlewares = array_unique(self::$middlewares);
+    static function register_middleware($middleware, $priority = 0) {
+        self::$middlewares[(int) $priority][] = $middleware;
     }
     
     static function register_view_path($view_path, $namespace) {
@@ -78,8 +71,8 @@ class Boot {
     
     static function register_middleware_group($group, $middleware, $priority = 0) {
         $middlewares = (array) $middleware;
-        foreach($middlewares as $middleware){
-            self::$middlewares_group[$group][(int)$priority][] = $middleware;
+        foreach($middlewares as $middleware) {
+            self::$middlewares_group[$group][(int) $priority][] = $middleware;
         }
     }
     
@@ -108,7 +101,15 @@ class Boot {
     }
     
     static function middlewares() {
-        return self::$middlewares;
+        $ret = [];
+        krsort(self::$middlewares);
+        foreach(self::$middlewares as $priority => $middlewares) {
+            foreach($middlewares as $middleware) {
+                $ret[] = $middleware;
+            }
+        }
+        
+        return $ret;
     }
     
     static function middlewares_route() {
@@ -117,15 +118,16 @@ class Boot {
     
     static function middlewares_group() {
         $ret = [];
-        foreach(self::$middlewares_group as $group=>$priorities){
+        foreach(self::$middlewares_group as $group => $priorities) {
             krsort($priorities);
-            foreach($priorities as $priority=>$middlewares){
-                foreach($middlewares as $middleware){
+            foreach($priorities as $priority => $middlewares) {
+                foreach($middlewares as $middleware) {
                     $ret[$group][] = $middleware;
                 }
                 
             }
         }
+        
         return $ret;
     }
     
