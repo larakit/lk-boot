@@ -3,18 +3,18 @@ namespace Larakit;
 
 class Boot {
     
-    static public $aliases           = [];
-    static public $configs           = [];
-    static public $middlewares       = [];
-    static public $middlewares_route = [];
-    static public $middlewares_group = [];
-    static public $service_providers = [];
-    static public $policies_model    = [];
-    static public $commands          = [];
-    static public $view_paths        = [];
-    static public $migrations        = [];
-    static public $boots             = [];
-    static public $langs             = [];
+    static public    $aliases           = [];
+    static public    $configs           = [];
+    protected static $middlewares       = [];
+    protected static $middlewares_route = [];
+    protected static $middlewares_group = [];
+    static public    $service_providers = [];
+    static public    $policies_model    = [];
+    static public    $commands          = [];
+    static public    $view_paths        = [];
+    static public    $migrations        = [];
+    static public    $boots             = [];
+    static public    $langs             = [];
     
     /**
      * Поставить в очередь регистрацию алиаса
