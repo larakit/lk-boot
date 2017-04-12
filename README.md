@@ -3,7 +3,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/larakit/lk-boot/v/unstable.svg)](https://packagist.org/packages/larakit/lk-boot)
 [![License](https://poser.pugx.org/larakit/lk-boot/license.svg)](https://packagist.org/packages/larakit/lk-boot)
 
-#[Larakit Boot] - пакет для отложенной регистрации сервис-провайдеров, алиасов и middleware
+# [Larakit Boot] - пакет для отложенной регистрации сервис-провайдеров, алиасов и middleware
 
 После установки очередного пакета, который требовал внесения правок конфига
 ~~~
