@@ -55,7 +55,8 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
             foreach($files as $path) {
                 $path = str_replace('\\', '/', $path);
                 //                dump($path);
-                $file   = str_replace([$path_config], [''], $path);
+                $file = ltrim(str_replace([$path_config], [''], $path), '/');
+                
                 $key    = str_replace(['.php', '/',], ['', '.'], $file);
                 $config = app('config')->get($key, []);
                 //                dd($path, require $path);
