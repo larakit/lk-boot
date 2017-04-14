@@ -12,6 +12,13 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
      * @return void
      */
     public function boot() {
+        foreach(Boot::$boots as $dir_boot) {
+            $dir_boot = str_replace('\\', '/', $dir_boot);
+            $files    = rglob('*.php', 0, $dir_boot);
+            foreach($files as $path) {
+                include_once $path;
+            }
+        }
         //регистрация политик моделей
         //        foreach(Boot::policies_model() as $model_class => $policy_class) {
         //            $gate->policy($model_class, $policy_class);
@@ -32,14 +39,6 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
         }
         //регистрация команд
         $this->commands(Boot::commands());
-        foreach(Boot::$boots as $dir_boot) {
-            $dir_boot = str_replace('\\', '/', $dir_boot);
-            $files    = rglob('*.php', 0, $dir_boot);
-            foreach($files as $path) {
-                include_once $path;
-            }
-        }
-        
     }
     
     /**
