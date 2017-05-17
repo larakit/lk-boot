@@ -8,9 +8,6 @@
         "larakit"
     ],
     "license": "MIT",
-    "require": {
-        "laravel/framework": "*"
-    },
     "autoload": {
         "psr-4": {
             "Larakit\\": "src"
