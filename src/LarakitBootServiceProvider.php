@@ -2,6 +2,7 @@
 
 namespace Larakit;
 
+use App\User;
 use Illuminate\Support\Arr;
 
 class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
@@ -39,6 +40,20 @@ class LarakitBootServiceProvider extends \Illuminate\Support\ServiceProvider {
         }
         //регистрация команд
         $this->commands(Boot::commands());
+        foreach(Boot::$observers as $model_class => $observers) {
+            if('_USER_' == $model_class) {
+                $model_class = config('auth.providers.users.model');
+            }
+            $instance = new $model_class;
+            
+            foreach($observers as $observer) {
+                foreach($instance->getObservableEvents() as $event) {
+                    if(method_exists($observer, $event)) {
+                        $model_class::registerModelEvent($event, $observer . '@' . $event);
+                    }
+                }
+            }
+        }
     }
     
     /**

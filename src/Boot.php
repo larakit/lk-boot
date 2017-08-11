@@ -13,6 +13,7 @@ class Boot {
     static public    $commands          = [];
     static public    $view_paths        = [];
     static public    $migrations        = [];
+    static public    $observers         = [];
     static public    $boots             = [];
     static public    $langs             = [];
     
@@ -40,6 +41,14 @@ class Boot {
     
     static function register_migrations($migrate_path) {
         self::$migrations[$migrate_path] = $migrate_path;
+    }
+    
+    static function register_observer($model_class, $observer) {
+        self::$observers[$model_class][$observer] = $observer;
+    }
+    
+    static function register_observer_user($observer) {
+        self::$observers['_USER_'][$observer] = $observer;
     }
     
     static function init_package($package, $dir = 'init') {
